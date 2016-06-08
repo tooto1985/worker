@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <script src="//code.jquery.com/jquery-1.11.3.js"></script>
+    <script>
+    $(function() {
+    	var w;
+        $(":button").on("mousedown mouseup", function(e) {
+            if (e.type === "mousedown") {
+                console.log("mousedown");
+                w = new Worker("test.js");
+		        w.onmessage = function(event) {
+		            $("#list").prepend(event.data + "<br>");
+		        };
+            } else {
+                console.log("mouseup");
+                w.terminate();
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+    <button>btn</button>
+    <div id="list"></div>
+</body>
+</html>
